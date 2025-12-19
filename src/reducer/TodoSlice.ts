@@ -4,7 +4,6 @@ import { GetTodo, InfoUser } from './api'
 interface IImg {
     id: number
     imageName: string
-    images: []
 }
 
 interface ITodo {

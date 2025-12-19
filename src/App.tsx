@@ -18,6 +18,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFormik } from 'formik';
 
+
 function App() {
   const { data, info } = useSelector((state) => state.todo)
 
@@ -28,7 +29,6 @@ function App() {
   const [Idx, setIdx] = useState(null)
 
   const [search, setSearch] = useState('')
-  console.log(info);
 
   const [openInfo, setOpenInfo] = useState(false)
 
@@ -138,12 +138,13 @@ function App() {
         <Dialog open={openInfo} onClose={() => setOpenInfo(false)}>
           <DialogTitle>INFO USER</DialogTitle>
           <DialogContent className="flex flex-col gap-2">
-            <div className="flex gap-2">
-              {info?.data?.images?.map(img => (
+            <div className="flex flex-col ">
+              {info?.data?.images?.map((img) => (
                 <img
                   key={img.id}
                   src={`${imageApi}/${img.imageName}`}
-                  width={300}
+                  width={250}
+                  height={300}
                 />
               ))}
             </div>
@@ -172,8 +173,8 @@ function App() {
           <TableBody>
             {data.filter((e) => e.name.toLowerCase().includes(search.toLowerCase()))
               .map((e) => (
-                <TableRow
-                  key={e.name}
+                <TableRow className='hover:bg-gray-200 transition-colors duration-400'
+                  key={e.id}
                   sx={{ '&:last-child td, &:last-child th ': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
@@ -182,7 +183,7 @@ function App() {
                   <TableCell component="th" scope="row">
                     <div className='flex gap-1'>
                       {e.images.map((img) => (
-                        <img width={60} className='rounded-full h-[60px]' src={`${imageApi}/${img?.imageName}`} alt="" />
+                        <img key={img.id} width={60} className='rounded-full h-[60px]' src={`${imageApi}/${img?.imageName}`} alt="" />
                       ))
                       }
                     </div>
@@ -194,15 +195,15 @@ function App() {
                   <TableCell >{e.isCompleted ? (<div><span>Active</span></div>) : (<div><span>Inactive</span></div>)}</TableCell>
                   <TableCell >
                     <div className='flex gap-1'>
-                      <span className='text-[20px]' onClick={() => dispatch(DeleteUser(e.id))}>🗑️</span>
-                      <span className='text-[20px]' onClick={() => handleEdit(e)}>✏️</span>
-                      <span className='text-[20px]' onClick={() => dispatch(DeleteUserImg(e.images[0].id))}>🗄️</span>
-                      <span className='text-[20px]' onClick={() => {
+                      <span className='text-[20px] hover:cursor-pointer' onClick={() => dispatch(DeleteUser(e.id) )}>🗑️</span>
+                      <span className='text-[20px] hover:cursor-pointer' onClick={() => handleEdit(e)}>✏️</span>
+                      <span className='text-[20px] hover:cursor-pointer' onClick={() => dispatch(DeleteUserImg(e.images[0].id))}>🗄️</span>
+                      <span className='text-[20px] hover:cursor-pointer' onClick={() => {
                         setIdx(e.id)
                         setOpenAddImg(true)
                       }}>🗃️</span>
                       <span
-                        className='text-[20px]'
+                        className='text-[20px]  hover:cursor-pointer'
                         onClick={() => {
                           dispatch(InfoUser(e.id))
                           setOpenInfo(true)

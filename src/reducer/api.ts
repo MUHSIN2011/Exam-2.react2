@@ -60,15 +60,16 @@ export const EditCheck = createAsyncThunk('todo/EditCheck', async (id, { dispatc
     }
 })
 
-export const AddNewUserImg = createAsyncThunk('todo/AddNewUserImg', async ({ id, formdata }, { dispatch }) => {
+export const AddNewUserImg = createAsyncThunk('todo/AddNewUserImg', async ({ id, formdata }: { id: number; formdata: FormData }, { dispatch }) => {
     try {
-        await axios.post(`${api}/${id}/images`, formdata)
-        dispatch(GetTodo())
+        await axios.post(`${api}/${id}/images`, formdata);
+        dispatch(GetTodo());
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 }
-)
+);
+
 
 
 export const InfoUser = createAsyncThunk('todo/InfoUser', async (id) => {
